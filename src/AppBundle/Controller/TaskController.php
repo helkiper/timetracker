@@ -17,7 +17,7 @@ class TaskController extends Controller
     /**
      * Lists all task entities.
      *
-     * @Route("/", name="task_index")
+     * @Route("/", options={"expose" = true}, name="task_index")
      */
     public function indexAction()
     {
@@ -36,7 +36,7 @@ class TaskController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/new", name="task_new")
+     * @Route("/new", options={"expose" = true}, name="task_new")
      */
     public function newAction(Request $request)
     {
@@ -64,7 +64,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{id}", name="task_show")
+     * @Route("/{id}", options={"expose" = true}, name="task_show")
      */
     public function showAction(Task $task)
     {
@@ -83,7 +83,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{id}/edit", name="task_edit")
+     * @Route("/{id}/edit", options={"expose" = true}, name="task_edit")
      */
     public function editAction(Request $request, Task $task)
     {
@@ -111,7 +111,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route("/{id}/delete", name="task_delete")
+     * @Route("/{id}/delete", options={"expose" = true}, name="task_delete")
      */
     public function deleteAction(Request $request, Task $task)
     {
@@ -138,7 +138,6 @@ class TaskController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('task_delete', array('id' => $task->getId())))
-//            ->setMethod('DELETE')
             ->getForm()
         ;
     }
