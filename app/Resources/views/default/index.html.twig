@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="uk">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Time tracker{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('bundles/app/css/styles.css') }}">
-        {% endblock %}
-    </head>
-    <body>
-        <header>
-            <h1>Time tracker</h1>
+{% extends 'base.html.twig' %}
 
-        </header>
-        <div id="timerContainer">
-            <p id="timer">00:00:00</p>
-            <button id="timerButton" disabled="disabled">Start</button>
-        </div>
+{% block title %}Time tracker{% endblock %}
 
-        {% block body %}
-            <div class="nav">
-                <a href="#">&ll; Назад до списку задач</a>
-            </div>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery-ui.structure.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/styles.css') }}">
+{% endblock %}
 
-            <div class="content">content</div>
-        {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/jQuery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/main.js') }}"></script>
+{% endblock %}
 
-        {% block javascripts %}
-            {#<script src="{{ asset('build/js/app.js') }}"></script>#}
-        {% endblock %}
-    </body>
-</html>
+{% block body %}
+    <header>
+        <h1>Time tracker</h1>
+    </header>
+
+    <div id="timerContainer">
+        <p id="timer">00:00:00</p>
+        <button id="timerButton" disabled="disabled">Start</button>
+    </div>
+
+    <div class="nav">
+        <a href="#">&ll; Назад до списку задач</a>
+    </div>
+
+    <div class="content">content</div>
+{% endblock %}
