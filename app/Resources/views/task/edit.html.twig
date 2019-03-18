@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Task edit</h1>
 
-    {{ form_start(edit_form) }}
+    {{ form_start(edit_form, {'action': path('task_edit', {'id': task.id}) }) }}
         {{ form_widget(edit_form) }}
         <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
@@ -13,7 +13,7 @@
             <a href="{{ path('task_index') }}">Back to the list</a>
         </li>
         <li>
-            {{ form_start(delete_form) }}
+            {{ form_start(delete_form, {'action': path('task_delete', {'id': task.id}) }) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>

@@ -25,9 +25,7 @@
         <button id="timerButton" disabled="disabled">Start</button>
     </div>
 
-    <div class="nav">
-        <a href="#">&ll; Назад до списку задач</a>
+    <div id="content">
+        {{ render(controller('AppBundle:Task:Index')) }}
     </div>
-
-    <div class="content">content</div>
 {% endblock %}
