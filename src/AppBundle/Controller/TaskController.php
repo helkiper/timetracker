@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,31 +19,27 @@ class TaskController extends Controller
     /**
      * Lists all task entities.
      *
+     * @return Response
+     *
      * @Route("/", name="task_index")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $tasks = $em->getRepository('AppBundle:Task')->findAll();
-
-        return $this->render('task/index.html.twig', array(
-            'tasks' => $tasks,
-        ));
+        return $this->renderIndexPage();
     }
 
     /**
      * Creates a new task entity.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route("/new", name="task_new")
      */
     public function newAction(Request $request)
     {
         $task = new Task();
-        $form = $this->createForm('AppBundle\Form\TaskType', $task);
+        $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,31 +47,26 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->redirectToRoute('task_show', array('id' => $task->getId()));
+            return $this->renderIndexPage();
         }
 
-        return $this->render('task/new.html.twig', array(
+        return $this->render('task/new.html.twig', [
             'task' => $task,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 
     /**
      * Finds and displays a task entity.
      *
      * @param Task $task
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route("/{id}", name="task_show")
      */
     public function showAction(Task $task)
     {
-        $deleteForm = $this->createDeleteForm($task);
-
-        return $this->render('task/show.html.twig', array(
-            'task' => $task,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->renderShowPage($task);
     }
 
     /**
@@ -81,27 +74,25 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task $task
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route("/{id}/edit", name="task_edit")
      */
     public function editAction(Request $request, Task $task)
     {
-        $deleteForm = $this->createDeleteForm($task);
-        $editForm = $this->createForm('AppBundle\Form\TaskType', $task);
+        $editForm = $this->createForm(TaskType::class, $task);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('task_edit', array('id' => $task->getId()));
+            return $this->renderShowPage($task);
         }
 
-        return $this->render('task/edit.html.twig', array(
+        return $this->render('task/edit.html.twig', [
             'task' => $task,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        ]);
     }
 
     /**
@@ -109,7 +100,7 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task $task
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      *
      * @Route("/{id}/delete", name="task_delete")
      */
@@ -124,7 +115,7 @@ class TaskController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('task_index');
+        return $this->renderIndexPage();
     }
 
     /**
@@ -137,9 +128,36 @@ class TaskController extends Controller
     private function createDeleteForm(Task $task)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('task_delete', array('id' => $task->getId())))
-//            ->setMethod('DELETE')
+            ->setAction($this->generateUrl('task_delete', ['id' => $task->getId()]))
             ->getForm()
         ;
+    }
+
+    /**
+     * @return Response
+     */
+    private function renderIndexPage()
+    {
+        $tasks = $this->getDoctrine()
+            ->getRepository('AppBundle:Task')
+            ->findAll();
+
+        return $this->render('task/index.html.twig', [
+            'tasks' => $tasks
+        ]);
+    }
+
+    /**
+     * @param Task $task
+     * @return Response
+     */
+    private function renderShowPage(Task $task)
+    {
+        $deleteForm = $this->createDeleteForm($task);
+
+        return $this->render('task/show.html.twig', [
+            'task' => $task,
+            'delete_form' => $deleteForm->createView(),
+        ]);
     }
 }
