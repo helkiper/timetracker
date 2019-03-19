@@ -2,7 +2,6 @@ body {
     margin: 0;
     background: cornsilk;
 }
-
 header {
     color: yellow;
     background-color: blue;
@@ -12,6 +11,7 @@ header {
     text-align: center;
 }
 
+/*timer*/
 #timerContainer {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -23,23 +23,76 @@ header {
     position: relative;
     padding-top: 1ex;
 }
-
 #timerButton {
     color: blue;
     padding: 5px 30px;
 }
-
 #timerButton[disabled = "disabled"] {
     color: lightgray;
 }
 
+/*index*/
 .nav {
     margin: 1em 3em;
     font-family: Arial, Helvetica, sans-serif;
 }
-
 #content {
     font-family: Arial, Helvetica, sans-serif;
     padding-left: 150px;
     position: absolute;
+}
+
+/*task show*/
+div.timing {
+    font-weight: bold;
+    padding: 5px;
+}
+div.created-at {
+    color: gray;
+    font-size: small;
+    padding: 5px;
+}
+
+/*task list*/
+table.task-list {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+table.task-list tr.odd {
+    background-color: blanchedalmond
+}
+table.task-list td {
+    border: 1px solid;
+    padding: 5px;
+}
+
+/*task form*/
+form div{
+    clear: left;
+    margin-bottom: 10px;
+}
+form label{
+    float: left;
+    margin-right: 10px;
+    text-align: right;
+    width: 100px;
+    font-weight: bold;
+    vertical-align: top;
+    padding-top: 10px;
+}
+form input[type="text"],
+form select{
+      width: 500px;
+      line-height: 26px;
+      min-height: 26px;
+  }
+form textarea{
+    width: 500px;
+    height: 150px;
+    line-height: 26px;
+}
+form input[type="submit"]{
+    margin-left: 110px;
+    line-height: 26px;
+    min-height: 26px;
 }
