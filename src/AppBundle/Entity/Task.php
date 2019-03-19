@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,20 @@ class Task
      */
     private $createdAt;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\TimeInterval", mappedBy="task")
+     */
+    private $timeIntervals;
+
+    /**
+     * Task constructor.
+     */
+    public function __construct()
+    {
+        $this->timeIntervals = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -135,5 +151,41 @@ class Task
     {
         $this->setCreatedAt(new \DateTime());
     }
-}
 
+    /**
+     * Add timeInterval
+     *
+     * @param TimeInterval $timeInterval
+     *
+     * @return Task
+     */
+    public function addTimeInterval(TimeInterval $timeInterval)
+    {
+        $this->timeIntervals[] = $timeInterval;
+
+        return $this;
+    }
+
+    /**
+     * Remove timeInterval
+     *
+     * @param TimeInterval $timeInterval
+     * @return Task
+     */
+    public function removeTimeInterval(TimeInterval $timeInterval)
+    {
+        $this->timeIntervals->removeElement($timeInterval);
+
+        return $this;
+    }
+
+    /**
+     * Get timeIntervals
+     *
+     * @return Collection
+     */
+    public function getTimeIntervals()
+    {
+        return $this->timeIntervals;
+    }
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Timeinterval</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ timeInterval.id }}</td>
+            </tr>
+            <tr>
+                <th>Startsat</th>
+                <td>{% if timeInterval.startsAt %}{{ timeInterval.startsAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Endsat</th>
+                <td>{% if timeInterval.endsAt %}{{ timeInterval.endsAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('timeinterval_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('timeinterval_edit', { 'id': timeInterval.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
