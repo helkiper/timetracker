@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Timeintervals list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Startsat</th>
+                <th>Endsat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for timeInterval in timeIntervals %}
+            <tr>
+                <td><a href="{{ path('timeinterval_show', { 'id': timeInterval.id }) }}">{{ timeInterval.id }}</a></td>
+                <td>{% if timeInterval.startsAt %}{{ timeInterval.startsAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if timeInterval.endsAt %}{{ timeInterval.endsAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('timeinterval_show', { 'id': timeInterval.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('timeinterval_edit', { 'id': timeInterval.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('timeinterval_new') }}">Create a new timeInterval</a>
+        </li>
+    </ul>
+{% endblock %}
