@@ -19,6 +19,7 @@ class TaskController extends Controller
     /**
      * Lists all task entities.
      *
+     * @Route("/", options={"expose" = true}, name="task_index")
      * @return Response
      *
      * @Route("/", name="task_index")
@@ -34,7 +35,7 @@ class TaskController extends Controller
      * @param Request $request
      * @return Response
      *
-     * @Route("/new", name="task_new")
+     * @Route("/new", options={"expose" = true}, name="task_new")
      */
     public function newAction(Request $request)
     {
@@ -62,7 +63,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return Response
      *
-     * @Route("/{id}", name="task_show")
+     * @Route("/{id}", options={"expose" = true}, name="task_show")
      */
     public function showAction(Task $task)
     {
@@ -76,7 +77,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return Response
      *
-     * @Route("/{id}/edit", name="task_edit")
+     * @Route("/{id}/edit", options={"expose" = true}, name="task_edit")
      */
     public function editAction(Request $request, Task $task)
     {
@@ -102,7 +103,7 @@ class TaskController extends Controller
      * @param Task $task
      * @return Response
      *
-     * @Route("/{id}/delete", name="task_delete")
+     * @Route("/{id}/delete", options={"expose" = true}, name="task_delete")
      */
     public function deleteAction(Request $request, Task $task)
     {
