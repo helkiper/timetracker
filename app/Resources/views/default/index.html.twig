@@ -12,6 +12,7 @@
 {% block javascripts %}
     <script src="{{ asset('bundles/app/js/jQuery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/timer.js') }}"></script>
     <script src="{{ asset('bundles/app/js/main.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -22,12 +23,7 @@
         <h1>Time tracker</h1>
     </header>
 
-    <div id="timerContainer">
-        <p id="timer">00:00:00</p>
-        <button id="timerButton" style="display: none">Start</button>
-    </div>
+    <div id="timerContainer"></div>
 
-    <div id="content">
-        {{ render(controller('AppBundle:Task:Index')) }}
-    </div>
+    <div id="content"></div>
 {% endblock %}

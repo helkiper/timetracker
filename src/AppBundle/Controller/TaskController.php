@@ -5,8 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Task;
 use AppBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,21 +19,20 @@ class TaskController extends Controller
     /**
      * Lists all task entities.
      *
-     * @Route("/", options={"expose" = true}, name="task_index")
-     * @return Response
+     * @return JsonResponse
      *
-     * @Route("/", name="task_index")
+     * @Route("/", options={"expose" = true}, name="task_index")
      */
     public function indexAction()
     {
-        return $this->renderIndexPage();
+        return $this->indexPageResponse();
     }
 
     /**
      * Creates a new task entity.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      *
      * @Route("/new", options={"expose" = true}, name="task_new")
      */
@@ -48,12 +47,14 @@ class TaskController extends Controller
             $em->persist($task);
             $em->flush();
 
-            return $this->renderIndexPage();
+            return $this->indexPageResponse();
         }
 
-        return $this->render('task/new.html.twig', [
-            'task' => $task,
-            'form' => $form->createView(),
+        return new JsonResponse([
+            'content' =>$this->renderView('task/new.html.twig', [
+                'task' => $task,
+                'form' => $form->createView(),
+            ])
         ]);
     }
 
@@ -61,13 +62,13 @@ class TaskController extends Controller
      * Finds and displays a task entity.
      *
      * @param Task $task
-     * @return Response
+     * @return JsonResponse
      *
      * @Route("/{id}", options={"expose" = true}, name="task_show")
      */
     public function showAction(Task $task)
     {
-        return $this->renderShowPage($task);
+        return $this->showPageResponse($task);
     }
 
     /**
@@ -75,7 +76,7 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task $task
-     * @return Response
+     * @return JsonResponse
      *
      * @Route("/{id}/edit", options={"expose" = true}, name="task_edit")
      */
@@ -87,12 +88,14 @@ class TaskController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->renderShowPage($task);
+            return $this->showPageResponse($task);
         }
 
-        return $this->render('task/edit.html.twig', [
-            'task' => $task,
-            'edit_form' => $editForm->createView(),
+        return new JsonResponse([
+            'content' =>$this->renderView('task/edit.html.twig', [
+                'task' => $task,
+                'edit_form' => $editForm->createView(),
+            ])
         ]);
     }
 
@@ -101,7 +104,7 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task $task
-     * @return Response
+     * @return JsonResponse
      *
      * @Route("/{id}/delete", options={"expose" = true}, name="task_delete")
      */
@@ -116,7 +119,7 @@ class TaskController extends Controller
             $em->flush();
         }
 
-        return $this->renderIndexPage();
+        return $this->indexPageResponse();
     }
 
     /**
@@ -135,30 +138,35 @@ class TaskController extends Controller
     }
 
     /**
-     * @return Response
+     * @return JsonResponse
      */
-    private function renderIndexPage()
+    private function indexPageResponse()
     {
         $tasks = $this->getDoctrine()
             ->getRepository('AppBundle:Task')
             ->findAll();
 
-        return $this->render('task/index.html.twig', [
-            'tasks' => $tasks
+        return new JsonResponse([
+            'content' => $this->renderView('task/index.html.twig', [
+                'tasks' => $tasks
+            ])
         ]);
     }
 
     /**
      * @param Task $task
-     * @return Response
+     * @return JsonResponse
      */
-    private function renderShowPage(Task $task)
+    private function showPageResponse(Task $task)
     {
         $deleteForm = $this->createDeleteForm($task);
 
-        return $this->render('task/show.html.twig', [
-            'task' => $task,
-            'delete_form' => $deleteForm->createView(),
+        return new JsonResponse([
+            'content' => $this->renderView('task/show.html.twig', [
+                'task' => $task,
+                'delete_form' => $deleteForm->createView(),
+            ]),
+            'shownTaskId' => $task->getId()
         ]);
     }
 }

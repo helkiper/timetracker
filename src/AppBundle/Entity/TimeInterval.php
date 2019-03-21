@@ -43,6 +43,16 @@ class TimeInterval
     private $task;
 
     /**
+     * TimeInterval constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->startsAt = new \DateTime();
+        $this->endsAt = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -117,5 +127,13 @@ class TimeInterval
         $this->task = $task;
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDuration()
+    {
+        return $this->endsAt->getTimestamp() - $this->startsAt->getTimestamp();
     }
 }
