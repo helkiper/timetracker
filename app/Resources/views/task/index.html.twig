@@ -1,19 +1,23 @@
-<h1>Tasks list</h1>
+{% extends 'base.html.twig' %}
 
-<table>
-    {% for key, task in tasks %}
-        <tr {{ key is odd ? 'class="odd"' : ''}}>
-            <td>
-                <a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.name | upper }}</a>
-                <br>
-                {{ task.description }}
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+{% block content %}
+    <h1>Tasks list</h1>
 
-<ul>
-    <li>
-        <a href="{{ path('task_new') }}">Create a new task</a>
-    </li>
-</ul>
+    <table>
+        {% for key, task in tasks %}
+            <tr {{ key is odd ? 'class="odd"' : ''}}>
+                <td>
+                    <a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.name | upper }}</a>
+                    <br>
+                    {{ task.description }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('task_new') }}">Create a new task</a>
+        </li>
+    </ul>
+{% endblock %}

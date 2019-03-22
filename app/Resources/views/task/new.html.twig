@@ -1,12 +1,16 @@
-<h1>Task creation</h1>
+{% extends 'base.html.twig' %}
 
-{{ form_start(form, {'action': path('task_new')}) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Create" />
-{{ form_end(form) }}
+{% block content %}
+    <h1>Task creation</h1>
 
-<ul>
-    <li>
-        <a href="{{ path('task_index') }}">Back to the list</a>
-    </li>
-</ul>
+    {{ form_start(form, {'action': path('task_new')}) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('task_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

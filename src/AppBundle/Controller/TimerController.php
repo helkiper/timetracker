@@ -70,7 +70,6 @@ class TimerController extends Controller
         $this->sessionManager->clear();
 
         return new JsonResponse([
-            'content' => $this->renderView('timer/inactive.html.twig'),
             'timerData' => ['stop' => true]
         ]);
     }
@@ -94,8 +93,6 @@ class TimerController extends Controller
             ]);
         }
 
-        return new JsonResponse([
-            'content' => $this->renderView('timer/inactive.html.twig')
-        ]);
+        return new JsonResponse();
     }
 }
