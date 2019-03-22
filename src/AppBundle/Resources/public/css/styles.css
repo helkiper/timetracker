@@ -53,14 +53,18 @@ div.created-at {
 }
 
 /*task list*/
-table.task-list {
+table {
     border: 1px solid;
     border-collapse: collapse;
 }
-table.task-list tr.odd {
+thead {
+    font-weight: bold;
+    background-color: burlywood;
+}
+table tr.odd {
     background-color: blanchedalmond
 }
-table.task-list td {
+table td {
     border: 1px solid;
     padding: 5px;
 }

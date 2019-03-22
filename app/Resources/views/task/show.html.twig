@@ -3,6 +3,27 @@
 <div class="timing">Time(estimated/actual): 00:00/00:00</div>
 <div class="created-at">Created: {{ task.createdAt | date('d F Y H:i:s') }}</div>
 
+{% if task.timeIntervals is not empty %}
+    <table>
+        <thead>
+            <tr>
+                <td>Begin</td>
+                <td>End</td>
+                <td>Duration</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, interval in task.timeIntervals %}
+                <tr {% if key is odd %}class="odd" {% endif %}>
+                    <td>{{ interval.startsAt | date('d F Y H:i:s') }}</td>
+                    <td>{{ interval.endsAt | date('d F Y H:i:s') }}</td>
+                    <td>{{ interval.duration | date('H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
 <ul>
     <li>
         <a href="{{ path('task_index') }}">Back to the list</a>
