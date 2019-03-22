@@ -1,7 +1,7 @@
 <h1>{{ task.name | upper }}</h1>
 <p>{{ task.description }}</p>
 <div class="timing">Time(estimated/actual): 00:00/00:00</div>
-<div class="created-at">Created: {{ task.createdAt | date('d F Y at H:i:s') }}</div>
+<div class="created-at">Created: {{ task.createdAt | date('d F Y H:i:s') }}</div>
 
 <ul>
     <li>
