@@ -1,0 +1,6 @@
+<h3>Comments</h3>
+<div id="commentList">
+    {% for comment in comments %}
+        {{ include('comment/list_raw.html.twig') }}
+    {% endfor %}
+</div>

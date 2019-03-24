@@ -1,0 +1,5 @@
+<p id="comment-{{ comment.id }}">
+    <span class="created-at">{{ comment.createdAt | date('d F Y H:i:s') }}</span>
+    <br>
+    <span>{{ comment.comment | nl2br }}</span>
+</p>

@@ -8,7 +8,7 @@
 
 {% block content %}
     <h1>{{ task.name | upper }}</h1>
-    <p>{{ task.description }}</p>
+    <p>{{ task.description | nl2br }}</p>
     <div class="timing">Time(estimated/actual): 00:00/00:00</div>
     <div class="created-at">Created: {{ task.createdAt | date('d F Y H:i:s') }}</div>
 
@@ -46,4 +46,15 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+
+    {{ include('comment/list.html.twig', {'comments': task.comments}) }}
+    <div id="commentFormContainer">
+        {{ render(controller('AppBundle:Comment:new', {'task': task.id})) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/comment.js') }}"></script>
 {% endblock %}

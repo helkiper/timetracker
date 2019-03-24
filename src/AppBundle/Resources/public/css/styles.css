@@ -99,3 +99,8 @@ form input[type="submit"]{
     line-height: 26px;
     min-height: 26px;
 }
+
+/*comment*/
+#commentFormContainer input[type=submit] {
+    margin-left: unset;
+}
