@@ -35,7 +35,7 @@ class TimerController extends Controller
      * @return JsonResponse
      * @throws \Exception
      *
-     * @Route("/start/{task}", options={"expose"=true}, name="timer_start")
+     * @Route("/start/{task}", name="timer_start")
      */
     public function startAction(Task $task)
     {
@@ -56,7 +56,7 @@ class TimerController extends Controller
      * @return JsonResponse
      * @throws \Exception
      *
-     * @Route("/stop", options={"expose"=true}, name="timer_stop")
+     * @Route("/stop", name="timer_stop")
      */
     public function stopAction()
     {

@@ -235,4 +235,17 @@ class Task
     {
         return $this->comments;
     }
+
+    /**
+     * @return int
+     */
+    public function getTotalTime()
+    {
+        $totalTime = 0;
+        /** @var TimeInterval $interval */
+        foreach ($this->timeIntervals as $interval) {
+            $totalTime += $interval->getDuration();
+        }
+        return $totalTime;
+    }
 }

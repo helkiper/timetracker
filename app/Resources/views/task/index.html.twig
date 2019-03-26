@@ -7,7 +7,7 @@
         {% for key, task in tasks %}
             <tr {{ key is odd ? 'class="odd"' : ''}}>
                 <td>
-                    <a href="{{ path('task_show', { 'id': task.id }) }}">{{ task.name | upper }}</a>
+                    <a href="{{ path('task_show', { 'id': task.id }) }}" class="plain">{{ task.name | upper }}</a>
                     <br>
                     {{ task.description }}
                 </td>
@@ -15,9 +15,7 @@
         {% endfor %}
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('task_new') }}">Create a new task</a>
-        </li>
-    </ul>
+    <p>
+        <a href="{{ path('task_new') }}">Create a new task</a>
+    </p>
 {% endblock %}

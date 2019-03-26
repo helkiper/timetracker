@@ -10,6 +10,9 @@ $(function () {
     init();
 
     function init() {
+        $('#content a[class!="plain"], input:submit').button();
+        $('#content .ui-controlgroup').controlgroup();
+
         initialTimerContainerHtml = $(SELECTORS.timerContainer).html();
 
         $(SELECTORS.timerContainer)

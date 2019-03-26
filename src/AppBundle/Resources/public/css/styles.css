@@ -95,12 +95,11 @@ form textarea{
     line-height: 26px;
 }
 form input[type="submit"]{
-    margin-left: 110px;
     line-height: 26px;
     min-height: 26px;
 }
 
 /*comment*/
-#commentFormContainer input[type=submit] {
-    margin-left: unset;
+#commentFormContainer .indented {
+    margin-left: 110px;
 }
